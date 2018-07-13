@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.table {
+  max-width: 50%;
+}
+
+.add-time {
+  margin: 5px;
+}
+
+.main {
+  text-align: center;
+  overflow: auto;
+}
+
+.table-cell {
+  padding: 4px 2px 4px 24px !important;
+}
+
+.info-list-item {
+  font-size: 50%
+}
+
+.message {
+  font-size: 12px;
+}
