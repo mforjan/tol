@@ -27,7 +27,7 @@ const FormDialog = ({open, toggleDialog, toggleCheck, addTime, changeTime, check
         open={open}
         onClose={toggleDialog}
       >
-        <form onSubmit={() => addTime(this.chargeNumber.value, this.location.value, true)}>
+        <form>
           <DialogTitle>Enter Time</DialogTitle>
           <DialogContent>
             <TextField
