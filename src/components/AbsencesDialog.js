@@ -22,8 +22,42 @@ import data from '../data/data';
 import * as actionCreators from '../actions/actions';
 
 class AbsencesDialog extends React.Component {
-  render() {
-    const absenceList = this.props.data.map(absence => (
+  handleChangeStartDate = (e) => {
+    this.props.actions.changeStartDate(e.target.value)
+  }
+
+  handleChangeEndDate = (e) => {
+    this.props.actions.changeEndDate(e.target.value)
+  }
+
+  handleChangeAbsenceReason = (e) => {
+    this.props.actions.changeAbsenceReason(e.target.value)
+  }
+
+  handleChangeTravelReason = (e) => {
+    this.props.actions.changeTravelReason(e.target.value)
+  }
+
+  handleSubmitAbsence = (e) => {
+    e.preventDefault();
+    if (!this.props.startDate || !this.props.endDate) {
+      alert('Please enter a start date and an end date.');
+      return;
+    } else if (!this.props.absenceReason && !this.props.travelReason) {
+      alert('Please choose an absence reason or enter a travel reason.');
+      return;
+    }
+    this.props.actions.toggleAbsences();
+    this.props.actions.addAbsence(this.props.startDate, this.props.endDate, this.props.absenceReason, this.props.travelReason)
+    this.props.actions.changeStartDate('')
+    this.props.actions.changeEndDate('')
+    this.props.actions.changeAbsenceReason('')
+    this.props.actions.changeTravelReason('')
+    this.props.actions.toggleSnackbar()
+  }
+
+  createAbsenceList = (data) => {
+    return data.map(absence => (
       <ListItem key={absence.startDate}>
         <ListItemText 
           primary={absence.startDate.toDateString() + ' to ' + absence.endDate.toDateString()} 
@@ -36,6 +70,10 @@ class AbsencesDialog extends React.Component {
         </ListItemSecondaryAction>
       </ListItem>
     ))
+  }
+
+  render() {
+    const absenceList = this.createAbsenceList(this.props.data)
     return (
       <div>
         <Dialog
@@ -54,9 +92,7 @@ class AbsencesDialog extends React.Component {
                   id='start'
                   inputRef={x => this.from = x}
                   InputLabelProps={{shrink: true}}
-                  onChange={(e) => {
-                    this.props.actions.changeStartDate(e.target.value)
-                  }}
+                  onChange={this.handleChangeStartDate}
                 />
                 <TextField
                   label='To'
@@ -65,7 +101,7 @@ class AbsencesDialog extends React.Component {
                   id='end'
                   inputRef={x => this.to = x}
                   InputLabelProps={{shrink: true}}
-                  onChange={(e) => this.props.actions.changeEndDate(e.target.value)}
+                  onChange={this.handleChangeEndDate}
                 />
                 <p style={{marginTop: 20, marginBottom: 0}}>Please select reason for travel or absence:</p>
                 <TextField
@@ -74,7 +110,7 @@ class AbsencesDialog extends React.Component {
                   select
                   label='Absence Reason'
                   value={this.props.absenceReason}
-                  onChange={(e) => this.props.actions.changeAbsenceReason(e.target.value)}
+                  onChange={this.handleChangeAbsenceReason}
                   SelectProps={{native: true}}
                   margin='normal'
                 >
@@ -91,7 +127,7 @@ class AbsencesDialog extends React.Component {
                   id='travel'
                   inputRef={x => this.travel = x}
                   value={this.props.travelReason}
-                  onChange={(e) => this.props.actions.changeTravelReason(e.target.value)}
+                  onChange={this.handleChangeTravelReason}
                 />
               </DialogContent>
               <div style={{flex: 3, overflow: 'auto'}}>
@@ -114,23 +150,7 @@ class AbsencesDialog extends React.Component {
               <Button onClick={this.props.actions.toggleAbsences}>
                 Cancel
               </Button>
-              <Button type='submit' onClick={(e) => {
-                e.preventDefault();
-                if (!this.props.startDate || !this.props.endDate) {
-                  alert('Please enter a start date and an end date.');
-                  return;
-                } else if (!this.props.absenceReason && !this.props.travelReason) {
-                  alert('Please choose an absence reason or enter a travel reason.');
-                  return;
-                }
-                this.props.actions.toggleAbsences();
-                this.props.actions.addAbsence(this.props.startDate, this.props.endDate, this.props.absenceReason, this.props.travelReason)
-                this.props.actions.changeStartDate('')
-                this.props.actions.changeEndDate('')
-                this.props.actions.changeAbsenceReason('')
-                this.props.actions.changeTravelReason('')
-                this.props.actions.toggleSnackbar()
-              }} color='primary'>
+              <Button type='submit' onClick={this.handleSubmitAbsence} color='primary'>
                 Submit
               </Button>
             </DialogActions>
