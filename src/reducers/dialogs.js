@@ -38,11 +38,15 @@ const dialogs = (state = initialState, action) => {
       return state.snackbarOpen === true ? {...state, snackbarOpen: false} : {...state, snackbarOpen: true}
     case 'CHANGE_START_DATE':
       let newAbsencesDialog2 = state.absencesDialog;
-      newAbsencesDialog2.startDate = action.date ? new Date(action.date) : '';
+      let startDate = new Date(action.date)
+      startDate.setDate(startDate.getDate() + 1)
+      newAbsencesDialog2.startDate = action.date ? startDate : '';
       return {...state, absencesDialog: newAbsencesDialog2};
     case 'CHANGE_END_DATE':
       let newAbsencesDialog3 = state.absencesDialog;
-      newAbsencesDialog3.endDate = action.date ? new Date(action.date) : '';
+      let endDate = new Date(action.date)
+      endDate.setDate(endDate.getDate() + 1)
+      newAbsencesDialog3.endDate = action.date ? endDate : '';
       return {...state, absencesDialog: newAbsencesDialog3};
     case 'CHANGE_ABSENCE_REASON':
       let newAbsencesDialog4 = state.absencesDialog;
