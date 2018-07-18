@@ -27,7 +27,7 @@ const SideMenu = ({open, infoOpen, toggleDrawer, toggleAbsences, toggleMessages,
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>
-            <ListItemText primary={data.info.name} />
+            <ListItemText primary={data.info[0].value} />
           </ListItem>
         </List>
         <Divider />
@@ -38,7 +38,7 @@ const SideMenu = ({open, infoOpen, toggleDrawer, toggleAbsences, toggleMessages,
           </ListItem>
           <Collapse in={infoOpen} timeout='auto' unmountOnExit>
             <List component='div' disablePadding>
-              {Object.keys(data.info).slice(1).map(key => <ListSubheader key={key}>{key + ': ' + data.info[key]}</ListSubheader>)}
+              {data.info.map(item => <ListSubheader key={item.key}>{item.key + ': ' + item.value}</ListSubheader>)}
             </List>
           </Collapse>
           <ListItem button onClick={toggleMessages}>
