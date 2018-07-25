@@ -126,7 +126,7 @@ const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, c
 };
 
 TimeReport.propTypes = {
-  time: PropTypes.object,
+  time: PropTypes.array,
   open: PropTypes.bool,
   toggleDialog: PropTypes.func,
   addTime: PropTypes.func,

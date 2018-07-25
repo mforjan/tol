@@ -168,7 +168,7 @@ AbsencesDialog.propTypes = {
   endDate: PropTypes.string,
   absenceReason: PropTypes.string,
   travelReason: PropTypes.string,
-  data: PropTypes.object,
+  data: PropTypes.array,
   open: PropTypes.bool
 };
 

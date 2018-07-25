@@ -49,7 +49,7 @@ const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
 MessagesDialog.propTypes = {
   open: PropTypes.bool,
   toggleDialog: PropTypes.func,
-  data: PropTypes.object,
+  data: PropTypes.array,
   deleteMessage: PropTypes.func
 };
 

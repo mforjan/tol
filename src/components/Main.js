@@ -71,9 +71,9 @@ Main.propTypes = {
   actions: PropTypes.object,
   drawerOpen: PropTypes.bool,
   infoOpen: PropTypes.bool,
-  messages: PropTypes.object,
+  messages: PropTypes.array,
   messagesOpen: PropTypes.bool,
-  time: PropTypes.object,
+  time: PropTypes.array,
   timeDialogOpen: PropTypes.bool,
   checked: PropTypes.bool,
   snackbarOpen: PropTypes.bool
