@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -65,6 +66,18 @@ class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {
+  actions: PropTypes.object,
+  drawerOpen: PropTypes.bool,
+  infoOpen: PropTypes.bool,
+  messages: PropTypes.object,
+  messagesOpen: PropTypes.bool,
+  time: PropTypes.object,
+  timeDialogOpen: PropTypes.bool,
+  checked: PropTypes.bool,
+  snackbarOpen: PropTypes.bool
+};
 
 const mapStateToProps = (state) => {
   return {

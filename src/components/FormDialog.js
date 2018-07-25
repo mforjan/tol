@@ -1,4 +1,5 @@
-// import React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import '../App.css';
 
 import Button from '@material-ui/core/Button';
@@ -83,6 +84,14 @@ const FormDialog = ({open, toggleDialog, toggleCheck, addTime, checked}) => {
       </Dialog>
     </div>
   );
+};
+
+FormDialog.propTypes = {
+  open: PropTypes.bool,
+  toggleDialog: PropTypes.func,
+  toggleCheck: PropTypes.func,
+  addTime: PropTypes.func,
+  checked: PropTypes.bool,
 };
 
 export default FormDialog;

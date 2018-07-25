@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../App.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -160,6 +161,16 @@ class AbsencesDialog extends React.Component {
     );
   }
 }
+
+AbsencesDialog.propTypes = {
+  actions: PropTypes.object,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  absenceReason: PropTypes.string,
+  travelReason: PropTypes.string,
+  data: PropTypes.object,
+  open: PropTypes.bool
+};
 
 const mapStateToProps = (state) => {
   return {

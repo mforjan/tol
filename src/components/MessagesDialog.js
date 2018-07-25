@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import '../App.css';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -42,6 +44,13 @@ const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
       </Dialog>
     </div>
   );
+};
+
+MessagesDialog.propTypes = {
+  open: PropTypes.bool,
+  toggleDialog: PropTypes.func,
+  data: PropTypes.object,
+  deleteMessage: PropTypes.func
 };
 
 export default MessagesDialog;

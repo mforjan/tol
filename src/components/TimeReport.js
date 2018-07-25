@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import '../App.css';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -121,6 +123,17 @@ const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, c
       </div>
     </div>
   );
+};
+
+TimeReport.propTypes = {
+  time: PropTypes.object,
+  open: PropTypes.bool,
+  toggleDialog: PropTypes.func,
+  addTime: PropTypes.func,
+  changeTime: PropTypes.func,
+  deleteRow: PropTypes.func,
+  checked: PropTypes.bool,
+  toggleCheck: PropTypes.func
 };
 
 export default TimeReport;

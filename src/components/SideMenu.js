@@ -1,3 +1,7 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import '../App.css';
+
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -52,6 +56,15 @@ const SideMenu = ({open, infoOpen, toggleDrawer, toggleAbsences, toggleMessages,
       </div>
     </Drawer>
   );
+};
+
+SideMenu.propTypes = {
+  open: PropTypes.bool,
+  infoOpen: PropTypes.bool,
+  toggleDrawer: PropTypes.func,
+  toggleAbsences: PropTypes.func,
+  toggleMessages: PropTypes.func,
+  toggleInfo: PropTypes.func
 };
 
 export default SideMenu;
