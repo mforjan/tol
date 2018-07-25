@@ -23,19 +23,19 @@ import * as actionCreators from '../actions/actions';
 
 class AbsencesDialog extends React.Component {
   handleChangeStartDate = (e) => {
-    this.props.actions.changeStartDate(e.target.value)
+    this.props.actions.changeStartDate(e.target.value);
   }
 
   handleChangeEndDate = (e) => {
-    this.props.actions.changeEndDate(e.target.value)
+    this.props.actions.changeEndDate(e.target.value);
   }
 
   handleChangeAbsenceReason = (e) => {
-    this.props.actions.changeAbsenceReason(e.target.value)
+    this.props.actions.changeAbsenceReason(e.target.value);
   }
 
   handleChangeTravelReason = (e) => {
-    this.props.actions.changeTravelReason(e.target.value)
+    this.props.actions.changeTravelReason(e.target.value);
   }
 
   handleSubmitAbsence = (e) => {
@@ -48,12 +48,12 @@ class AbsencesDialog extends React.Component {
       return;
     }
     this.props.actions.toggleAbsences();
-    this.props.actions.addAbsence(this.props.startDate, this.props.endDate, this.props.absenceReason, this.props.travelReason)
-    this.props.actions.changeStartDate('')
-    this.props.actions.changeEndDate('')
-    this.props.actions.changeAbsenceReason('')
-    this.props.actions.changeTravelReason('')
-    this.props.actions.toggleSnackbar()
+    this.props.actions.addAbsence(this.props.startDate, this.props.endDate, this.props.absenceReason, this.props.travelReason);
+    this.props.actions.changeStartDate('');
+    this.props.actions.changeEndDate('');
+    this.props.actions.changeAbsenceReason('');
+    this.props.actions.changeTravelReason('');
+    this.props.actions.toggleSnackbar();
   }
 
   createAbsenceList = (data) => {
@@ -69,11 +69,11 @@ class AbsencesDialog extends React.Component {
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
-    ))
+    ));
   }
 
   render() {
-    const absenceList = this.createAbsenceList(this.props.data)
+    const absenceList = this.createAbsenceList(this.props.data);
     return (
       <div>
         <Dialog
@@ -170,13 +170,13 @@ const mapStateToProps = (state) => {
     travelReason: state.dialogs.absencesDialog.travelReason,
     data: state.absences,
     snackbarOpen: state.dialogs.snackbarOpen,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actionCreators, dispatch)
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AbsencesDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(AbsencesDialog);

@@ -78,13 +78,13 @@ const mapStateToProps = (state) => {
     infoOpen: state.dialogs.infoOpen,
     checked: state.dialogs.timeDialog.checked,
     snackbarOpen: state.dialogs.snackbarOpen,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actionCreators, dispatch)
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

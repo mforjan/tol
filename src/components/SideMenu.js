@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -53,7 +51,7 @@ const SideMenu = ({open, infoOpen, toggleDrawer, toggleAbsences, toggleMessages,
         </List>
       </div>
     </Drawer>
-  )
-}
+  );
+};
 
 export default SideMenu;

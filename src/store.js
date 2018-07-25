@@ -23,8 +23,8 @@ const initialState = {
     infoOpen: false,
     snackbarOpen: false,
   }
-}
+};
 
-const store = createStore(rootReducer, initialState)
+const store = createStore(rootReducer, initialState);
 
 export default store;

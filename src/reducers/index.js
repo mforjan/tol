@@ -10,6 +10,6 @@ const rootReducer = combineReducers({
   absences,
   messages,
   dialogs,
-})
+});
 
 export default rootReducer;

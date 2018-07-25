@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import '../App.css';
 
 import Button from '@material-ui/core/Button';
@@ -11,7 +11,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-const FormDialog = ({open, toggleDialog, toggleCheck, addTime, changeTime, checked}) => {
+const FormDialog = ({open, toggleDialog, toggleCheck, addTime, checked}) => {
   return (
     <div>
       <Button 
@@ -82,7 +82,7 @@ const FormDialog = ({open, toggleDialog, toggleCheck, addTime, changeTime, check
         </form>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
 export default FormDialog;

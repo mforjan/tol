@@ -1,5 +1,4 @@
-import React from 'react';
-import '../App.css'
+import '../App.css';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -33,8 +32,9 @@ const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
                     <ClearIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
-              </ListItem>)
-            }) : (<ListItem button>
+              </ListItem>);
+            }) : (
+              <ListItem button>
                 <ListItemText className='message' primary='No messages' />
               </ListItem>)}
           </List>
@@ -42,6 +42,6 @@ const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
       </Dialog>
     </div>
   );
-}
+};
 
 export default MessagesDialog;
