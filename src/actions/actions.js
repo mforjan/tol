@@ -7,12 +7,11 @@ export const addTime = (chargeNumber, location, telework) => {
   };
 };
 
-export const changeTime = (chargeNumber, location, telework, day, newHours) => {
+export const changeTime = (chargeNumber, location, telework, day) => {
   return {
     type: 'CHANGE_TIME',
     rowId: chargeNumber + location + telework,
-    day,
-    newHours,
+    day
   };
 };
 
