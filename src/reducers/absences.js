@@ -5,7 +5,6 @@ const addAbsence = (state = data.absences, action) => {
   case 'ADD_ABSENCE': {
     const newState = [...state];
     newState.push({
-      id: window.absenceId++,
       startDate: action.startDate,
       endDate: action.endDate,
       absenceReason: action.absenceReason,
