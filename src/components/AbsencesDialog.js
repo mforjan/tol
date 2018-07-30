@@ -57,6 +57,11 @@ class AbsencesDialog extends React.Component {
     this.props.actions.toggleSnackbar();
   }
 
+  handleDeleteAbsence = (startDate, endDate) => {
+    if (!window.confirm('Are you sure you want to delete this absence?')) return;
+    this.props.actions.deleteAbsence(startDate, endDate);
+  }
+
   createAbsenceList = (data) => {
     return data.map(absence => (
       <ListItem key={absence.startDate}>
@@ -65,7 +70,7 @@ class AbsencesDialog extends React.Component {
           secondary={absence.absenceReason ? absence.absenceReason : absence.travelReason} 
         />
         <ListItemSecondaryAction>
-          <IconButton onClick={() => this.props.actions.deleteAbsence(absence.startDate, absence.endDate)} aria-label="Comments">
+          <IconButton onClick={() => this.handleDeleteAbsence(absence.startDate, absence.endDate)} aria-label="Comments">
             <ClearIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -164,8 +169,8 @@ class AbsencesDialog extends React.Component {
 
 AbsencesDialog.propTypes = {
   actions: PropTypes.object,
-  startDate: PropTypes.instanceOf(Date),
-  endDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.instanceOf(Date) ,
+  endDate: PropTypes.instanceOf(Date) ,
   absenceReason: PropTypes.string,
   travelReason: PropTypes.string,
   data: PropTypes.array,
@@ -175,8 +180,8 @@ AbsencesDialog.propTypes = {
 const mapStateToProps = (state) => {
   return {
     open: state.dialogs.absencesDialog.open,
-    startDate: state.dialogs.absencesDialog.startDate,
-    endDate: state.dialogs.absencesDialog.endDate,
+    startDate: new Date(state.dialogs.absencesDialog.startDate),
+    endDate: new Date(state.dialogs.absencesDialog.endDate),
     absenceReason: state.dialogs.absencesDialog.absenceReason,
     travelReason: state.dialogs.absencesDialog.travelReason,
     data: state.absences,

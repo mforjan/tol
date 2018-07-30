@@ -13,8 +13,7 @@ const addAbsence = (state = data.absences, action) => {
     return newState;
   }
   case 'DELETE_ABSENCE': {
-    if (!window.confirm('Are you sure you want to delete this absence?')) return state;
-    return state.filter(absence => (absence.startDate !== action.startDate) || (absence.endDate !== action.endDate));
+    return state.filter(absence => (absence.startDate.getTime() !== action.startDate.getTime()) || (absence.endDate.getTime() !== action.endDate.getTime()));
   }
   default: {
     return state;
