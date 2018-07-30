@@ -50,8 +50,8 @@ class AbsencesDialog extends React.Component {
     }
     this.props.actions.toggleAbsences();
     this.props.actions.addAbsence(this.props.startDate, this.props.endDate, this.props.absenceReason, this.props.travelReason);
-    this.props.actions.changeStartDate('');
-    this.props.actions.changeEndDate('');
+    this.props.actions.changeStartDate(undefined);
+    this.props.actions.changeEndDate(undefined);
     this.props.actions.changeAbsenceReason('');
     this.props.actions.changeTravelReason('');
     this.props.actions.toggleSnackbar();
@@ -164,8 +164,8 @@ class AbsencesDialog extends React.Component {
 
 AbsencesDialog.propTypes = {
   actions: PropTypes.object,
-  startDate: PropTypes.string,
-  endDate: PropTypes.string,
+  startDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date),
   absenceReason: PropTypes.string,
   travelReason: PropTypes.string,
   data: PropTypes.array,
