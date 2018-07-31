@@ -35,6 +35,21 @@ const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let dayIndex = 0;
 
 const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, checked, toggleCheck}) => {
+  const handleChangeTime = (chargeNumber, location, telework, day) => {
+    let newHours = prompt('Enter hours for this day:');
+    if (newHours % .25 !== 0) {
+      alert('Please enter time in quarter-hour increments');
+      return;
+    } else if (newHours > 24) {
+      alert('Please enter a number between 0 and 24');
+      return;
+    } else if (newHours === '') {
+      newHours = 0;
+    } else if (newHours === null) {
+      return;
+    }
+    return changeTime(chargeNumber, location, telework, day, newHours);
+  };
   return (
     <div>
       <Table>
@@ -63,7 +78,7 @@ const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, c
                 className='table-cell' 
                 style={{cursor: 'pointer'}} 
                 key={rowId + i} 
-                onClick={() => {changeTime(row.chargeNumber, row.location, row.telework, day);}}
+                onClick={() => {handleChangeTime(row.chargeNumber, row.location, row.telework, day);}}
               >
                 {row.hours[day] === 0 ? '': (row.hours[day]).toFixed(2)}
               </CustomTableCell>);

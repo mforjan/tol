@@ -39,20 +39,9 @@ const timeReport = (state = data.rows, action) => {
   }
   case 'CHANGE_TIME': {
     const newState2 = [...state];
-    let newHours = prompt('Enter hours for this day:');
-    if (newHours % .25 !== 0) {
-      alert('Please enter time in quarter-hour increments');
-      return state;
-    } else if (newHours > 24) {
-      alert('Please enter a number between 0 and 24');
-      return state;
-    } else if (newHours === '') {
-      newHours = 0;
-    } else if (newHours === null) {
-      return state;
-    }
+    console.log(newState2)
     const row = newState2.find(row => row.chargeNumber + row.location + row.telework === action.rowId);
-    row.hours[action.day] = parseFloat(newHours);
+    row.hours[action.day] = parseFloat(action.newHours);
     return newState2;
   }
   case 'DELETE_ROW': {
