@@ -35,8 +35,6 @@ describe('absences', () => {
   });
 
   it('can handle deleting an absence', () => {
-    console.log('default state', defaultState)
-    console.log(defaultState[0].startDate)
     expect(absences(defaultState, {
       type: 'DELETE_ABSENCE',
       startDate: new Date('12/26/18'),
