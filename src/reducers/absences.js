@@ -14,7 +14,7 @@ const absences = (state = data.absences, action) => {
   }
   case 'DELETE_ABSENCE': {
     const newState = state.filter(absence => (absence.startDate.getTime() !== action.startDate.getTime()));
-    return newState
+    return newState;
   }
   default: {
     return state;
