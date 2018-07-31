@@ -169,8 +169,8 @@ class AbsencesDialog extends React.Component {
 
 AbsencesDialog.propTypes = {
   actions: PropTypes.object,
-  startDate: PropTypes.instanceOf(Date) ,
-  endDate: PropTypes.instanceOf(Date) ,
+  startDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date),
   absenceReason: PropTypes.string,
   travelReason: PropTypes.string,
   data: PropTypes.array,
