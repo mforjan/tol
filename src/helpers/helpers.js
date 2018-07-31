@@ -3,14 +3,14 @@ const findRowHours = (row) => Object.values(row.hours).reduce((total, row) => to
 const findTotalHours = (arr) => {
   const array = arr.map(row => findRowHours(row));
   const answer = array.length ? array.reduce((total, row) => total + row) : 0;
-  return answer.toFixed(2);
+  return parseFloat(answer.toFixed(2));
 };
 
 const findTotalTeleworkHours = (arr) => {
   const teleworkRows = arr.filter(row => row.telework === true);
   const array = teleworkRows.map(row => findRowHours(row));
   const answer = array.length ? array.reduce((total, row) => total + row) : 0;
-  return answer.toFixed(2);
+  return parseFloat(answer.toFixed(2));
 };
 
 const helpers = {
