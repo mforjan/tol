@@ -15,6 +15,9 @@ import ClearIcon from '@material-ui/icons/Clear';
 // import data from '../data/data';
 
 const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
+  const handleDeleteMessage = (id) => {
+    if (window.confirm('Delete message?')) return deleteMessage(id);
+  };
   return (
     <div>
       <Dialog
@@ -30,7 +33,7 @@ const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
               return (<ListItem key={message.id} button>
                 <ListItemText className='message' primary={message.text} secondary={message.date} />
                 <ListItemSecondaryAction>
-                  <IconButton onClick={() => deleteMessage(message.id)} aria-label="Comments">
+                  <IconButton onClick={() => handleDeleteMessage(message.id)} aria-label="Comments">
                     <ClearIcon />
                   </IconButton>
                 </ListItemSecondaryAction>

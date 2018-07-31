@@ -3,8 +3,7 @@ import data from '../data/data';
 const messages = (state = data.messages, action) => {
   switch (action.type) {
   case 'DELETE_MESSAGE': {
-    const stateCopy = [...state];
-    return window.confirm('Delete message?') ? stateCopy.filter(message => message.id !== action.id) : state;
+    return state.filter(message => message.id !== action.id);
   }
   default: {
     return state;
