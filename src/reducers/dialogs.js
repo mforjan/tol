@@ -46,16 +46,22 @@ const dialogs = (state = initialState, action) => {
   }
   case 'CHANGE_START_DATE': {
     let newAbsencesDialog2 = state.absencesDialog;
-    if (action.date) action.date = action.date.split('-').join(',');
-    let startDate = new Date(action.date);
-    newAbsencesDialog2.startDate = action.date ? startDate : undefined;
+    let startDate = undefined;
+    if (action.date) {
+      action.date = action.date.split('-').join(',');
+      startDate = new Date(action.date);
+    }
+    newAbsencesDialog2.startDate = startDate;
     return {...state, absencesDialog: newAbsencesDialog2};
   }
   case 'CHANGE_END_DATE': {
     let newAbsencesDialog3 = state.absencesDialog;
-    if (action.date) action.date = action.date.split('-').join(',');
-    let endDate = new Date(action.date);
-    newAbsencesDialog3.endDate = action.date ? endDate : undefined;
+    let endDate = undefined;
+    if (action.date) {
+      action.date = action.date.split('-').join(',');
+      endDate = new Date(action.date);
+    }
+    newAbsencesDialog3.endDate = endDate;
     return {...state, absencesDialog: newAbsencesDialog3};
   }
   case 'CHANGE_ABSENCE_REASON': {
