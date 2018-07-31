@@ -56,6 +56,7 @@
     "lint": "./node_modules/.bin/eslint"
   },
   "jest": {
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
     ],
