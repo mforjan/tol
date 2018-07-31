@@ -50,6 +50,11 @@ const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, c
     }
     return changeTime(chargeNumber, location, telework, day, newHours);
   };
+
+  const handleDeleteRow = (id) => {
+    if (window.confirm('Are you sure you want to delete this row?')) return deleteRow(id);
+  };
+
   return (
     <div>
       <Table>
@@ -85,7 +90,7 @@ const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, c
             }
             return (<TableRow key={rowId} hover={true}>
               <CustomTableCell className='table-cell'>
-                <IconButton onClick={() => deleteRow(rowId)} >
+                <IconButton onClick={() => handleDeleteRow(rowId)} >
                   <ClearIcon />
                 </IconButton>
               </CustomTableCell>

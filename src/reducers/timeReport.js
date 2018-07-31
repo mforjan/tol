@@ -39,14 +39,12 @@ const timeReport = (state = data.rows, action) => {
   }
   case 'CHANGE_TIME': {
     const newState2 = [...state];
-    console.log(newState2)
     const row = newState2.find(row => row.chargeNumber + row.location + row.telework === action.rowId);
     row.hours[action.day] = parseFloat(action.newHours);
     return newState2;
   }
   case 'DELETE_ROW': {
     const stateCopy = [...state];
-    if (!window.confirm('Are you sure you want to delete this row?')) return state;
     const newState3 = stateCopy.filter(row => row.chargeNumber + row.location + row.telework !== action.rowId);
     return newState3;
   }
