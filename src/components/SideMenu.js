@@ -16,7 +16,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 
 import data from '../data/data';
 
-const SideMenu = ({open, infoOpen, toggleDrawer, toggleAbsences, toggleMessages, toggleInfo}) => {
+export const SideMenu = ({open, infoOpen, toggleDrawer, toggleAbsences, toggleMessages, toggleInfo}) => {
   return (
     <Drawer open={open} onClose={toggleDrawer}>
       <div
@@ -34,7 +34,7 @@ const SideMenu = ({open, infoOpen, toggleDrawer, toggleAbsences, toggleMessages,
         </List>
         <Divider />
         <List component='nav'>
-          <ListItem button onClick={toggleInfo}>
+          <ListItem button onClick={toggleInfo} className='expandable'>
             <ListItemText primary='Employee Info' />
             {infoOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
