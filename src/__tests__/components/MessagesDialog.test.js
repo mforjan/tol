@@ -52,7 +52,6 @@ describe('MessagesDialog', () => {
     window.confirm = () => false;
     const button = wrapper.find(IconButton);
     button.simulate('click');
-    console.log(props.deleteMessage)
     expect(props.deleteMessage).not.toBeCalled();
   })
 
