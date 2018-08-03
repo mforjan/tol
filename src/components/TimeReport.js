@@ -34,7 +34,7 @@ const CustomTableCell = withStyles(() => ({
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let dayIndex = 0;
 
-const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, checked, toggleCheck}) => {
+export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, checked, toggleCheck}) => {
   const handleChangeTime = (chargeNumber, location, telework, day) => {
     let newHours = prompt('Enter hours for this day:');
     if (newHours % .25 !== 0) {

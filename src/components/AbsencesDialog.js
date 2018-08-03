@@ -22,7 +22,7 @@ import Divider from '@material-ui/core/Divider';
 import data from '../data/data';
 import * as actionCreators from '../actions/actions';
 
-class AbsencesDialog extends React.Component {
+export class AbsencesDialog extends React.Component {
   handleChangeStartDate = (e) => {
     this.props.actions.changeStartDate(e.target.value);
   }
@@ -50,8 +50,8 @@ class AbsencesDialog extends React.Component {
     }
     this.props.actions.toggleAbsences();
     this.props.actions.addAbsence(this.props.startDate, this.props.endDate, this.props.absenceReason, this.props.travelReason);
-    this.props.actions.changeStartDate(undefined);
-    this.props.actions.changeEndDate(undefined);
+    this.props.actions.changeStartDate(null);
+    this.props.actions.changeEndDate(null);
     this.props.actions.changeAbsenceReason('');
     this.props.actions.changeTravelReason('');
     this.props.actions.toggleSnackbar();

@@ -16,7 +16,7 @@ import AbsencesDialog from './AbsencesDialog';
 import MessagesDialog from './MessagesDialog';
 import * as actionCreators from '../actions/actions';
 
-class Main extends React.Component {
+export class Main extends React.Component {
   render() {
     return (
       <div className='main'>

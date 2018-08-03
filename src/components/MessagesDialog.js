@@ -14,7 +14,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 // import data from '../data/data';
 
-const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
+export const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
   const handleDeleteMessage = (id) => {
     if (window.confirm('Delete message?')) return deleteMessage(id);
   };
