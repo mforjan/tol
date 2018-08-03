@@ -44,7 +44,6 @@ describe('MessagesDialog', () => {
   it('calls the deleteMessage function when the icon button is clicked', () => {
     const button = wrapper.find(IconButton);
     button.simulate('click');
-    console.log(props.deleteMessage)
     expect(props.deleteMessage).toBeCalled();
   })
 
