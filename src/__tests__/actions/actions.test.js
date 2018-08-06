@@ -81,6 +81,20 @@ describe('actions', () => {
     });
   });
 
+  it('should create an action to change the charge number', () => {
+    expect(actions.changeChargeNumber('test')).toEqual({
+      type: 'CHANGE_CHARGE_NUMBER',
+      chargeNumber: 'test'
+    });
+  });
+
+  it('should create an action to change the location', () => {
+    expect(actions.changeLocation('test')).toEqual({
+      type: 'CHANGE_LOCATION',
+      location: 'test'
+    });
+  });
+
   it('should create an action to toggle the telework checkbox', () => {
     expect(actions.toggleCheck()).toEqual({
       type: 'TOGGLE_CHECKED'

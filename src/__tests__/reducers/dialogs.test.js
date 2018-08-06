@@ -1,41 +1,50 @@
 import dialogs from '../../reducers/dialogs';
 import data from '../../data/data';
 
-const defaultState = {
-  drawerOpen: false,
-  timeDialog: {
-    open: false,
-    checked: false,
-  },
-  messagesDialogOpen: false,
-  absencesDialog: {
-    open: false,
-    startDate: '',
-    endDate: '',
-    reason: '',
-  },
-  snackbarOpen: false,
-  infoOpen: false,
-};
-
-const defaultState2 = {
-  drawerOpen: true,
-  timeDialog: {
-    open: true,
-    checked: true,
-  },
-  messagesDialogOpen: true,
-  absencesDialog: {
-    open: true,
-    startDate: '',
-    endDate: '',
-    reason: '',
-  },
-  snackbarOpen: true,
-  infoOpen: true,
-};
-
 describe('dialogs', () => {
+
+  let defaultState;
+  let defaultState2;
+
+  beforeEach(() => {
+    defaultState = {
+      drawerOpen: false,
+      timeDialog: {
+        open: false,
+        checked: false,
+        chargeNumber: '',
+        location: '',
+      },
+      messagesDialogOpen: false,
+      absencesDialog: {
+        open: false,
+        startDate: '',
+        endDate: '',
+        reason: '',
+      },
+      snackbarOpen: false,
+      infoOpen: false,
+    };
+
+    defaultState2 = {
+      drawerOpen: true,
+      timeDialog: {
+        open: true,
+        checked: true,
+        chargeNumber: '',
+        location: '',
+      },
+      messagesDialogOpen: true,
+      absencesDialog: {
+        open: true,
+        startDate: '',
+        endDate: '',
+        reason: '',
+      },
+      snackbarOpen: true,
+      infoOpen: true,
+    };
+  })
 
   it('has an initial state', () => {
     expect(dialogs(undefined, { type: 'N/A' })).toEqual(defaultState)
@@ -66,7 +75,9 @@ describe('dialogs', () => {
       ...defaultState,
       timeDialog: {
         open: true,
-        checked: false
+        checked: false,
+        chargeNumber: '',
+        location: '',
       }
     })
   });
@@ -78,7 +89,9 @@ describe('dialogs', () => {
       ...defaultState2,
       timeDialog: {
         open: false,
-        checked: true
+        checked: true,
+        chargeNumber: '',
+        location: '',
       }
     })
   });
@@ -147,6 +160,36 @@ describe('dialogs', () => {
     })
   });
 
+  it('changes the charge number on the time dialog', () => {
+    expect(dialogs(defaultState, {
+      type: 'CHANGE_CHARGE_NUMBER',
+      chargeNumber: 'test'
+    })).toEqual({
+      ...defaultState,
+      timeDialog: {
+        open: false,
+        checked: false,
+        chargeNumber: 'test',
+        location: '',
+      }
+    })
+  });
+
+  it('changes the location on the time dialog', () => {
+    expect(dialogs(defaultState, {
+      type: 'CHANGE_LOCATION',
+      location: 'test'
+    })).toEqual({
+      ...defaultState,
+      timeDialog: {
+        open: false,
+        checked: false,
+        chargeNumber: '',
+        location: 'test',
+      }
+    })
+  });
+
   it('checks the checkbox on the time dialog', () => {
     expect(dialogs(defaultState, {
       type: 'TOGGLE_CHECKED'
@@ -154,7 +197,9 @@ describe('dialogs', () => {
       ...defaultState,
       timeDialog: {
         open: false,
-        checked: true
+        checked: true,
+        chargeNumber: '',
+        location: '',
       }
     })
   });
@@ -166,7 +211,9 @@ describe('dialogs', () => {
       ...defaultState2,
       timeDialog: {
         open: true,
-        checked: false
+        checked: false,
+        chargeNumber: '',
+        location: '',
       }
     })
   });
