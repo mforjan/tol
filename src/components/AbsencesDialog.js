@@ -41,7 +41,7 @@ export class AbsencesDialog extends React.Component {
 
   handleSubmitAbsence = (e) => {
     e.preventDefault();
-    if (!this.props.startDate || !this.props.endDate) {
+    if (!this.props.startDate.getTime() || !this.props.endDate.getTime()) {
       alert('Please enter a start date and an end date.');
       return;
     } else if (!this.props.absenceReason && !this.props.travelReason) {
@@ -96,7 +96,6 @@ export class AbsencesDialog extends React.Component {
                   margin='dense'
                   type='date'
                   id='start'
-                  inputRef={x => this.from = x}
                   InputLabelProps={{shrink: true}}
                   onChange={this.handleChangeStartDate}
                 />
@@ -105,7 +104,6 @@ export class AbsencesDialog extends React.Component {
                   margin='dense'
                   type='date'
                   id='end'
-                  inputRef={x => this.to = x}
                   InputLabelProps={{shrink: true}}
                   onChange={this.handleChangeEndDate}
                 />
@@ -131,7 +129,6 @@ export class AbsencesDialog extends React.Component {
                   label='Travel Reason'
                   margin='dense'
                   id='travel'
-                  inputRef={x => this.travel = x}
                   value={this.props.travelReason}
                   onChange={this.handleChangeTravelReason}
                 />
