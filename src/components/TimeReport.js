@@ -34,9 +34,9 @@ const CustomTableCell = withStyles(() => ({
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let dayIndex = 0;
 
-export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, checked, toggleCheck}) => {
+export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, chargeNumber, location, checked, changeChargeNumber, changeLocation, toggleCheck}) => {
   const handleChangeTime = (chargeNumber, location, telework, day) => {
-    let newHours = prompt('Enter hours for this day:');
+    let newHours = window.prompt('Enter hours for this day:');
     if (newHours % .25 !== 0) {
       alert('Please enter time in quarter-hour increments');
       return;
@@ -80,7 +80,7 @@ export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, delet
             for (let i = 0; i < 14; i++) {
               const day = 'day' + i;
               table.push(<CustomTableCell 
-                className='table-cell' 
+                className='table-cell time-cell' 
                 style={{cursor: 'pointer'}} 
                 key={rowId + i} 
                 onClick={() => {handleChangeTime(row.chargeNumber, row.location, row.telework, day);}}
@@ -129,8 +129,12 @@ export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, delet
         <FormDialog 
           open={open}
           toggleDialog={toggleDialog}
+          changeChargeNumber={changeChargeNumber}
+          changeLocation={changeLocation}
           toggleCheck={toggleCheck}
           addTime={addTime}
+          chargeNumber={chargeNumber}
+          location={location}
           checked={checked}
         />
         <Button 
@@ -138,7 +142,6 @@ export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, delet
           color='primary' 
           className='add-time'
           style={{margin: 10}}
-          onClick={() => console.log(time)}
         >Submit Time Report</Button>
       </div>
     </div>
@@ -152,8 +155,12 @@ TimeReport.propTypes = {
   addTime: PropTypes.func,
   changeTime: PropTypes.func,
   deleteRow: PropTypes.func,
+  chargeNumber: PropTypes.string,
+  location: PropTypes.string,
   checked: PropTypes.bool,
-  toggleCheck: PropTypes.func
+  changeChargeNumber: PropTypes.func,
+  changeLocation: PropTypes.func,
+  toggleCheck: PropTypes.func,
 };
 
 export default TimeReport;

@@ -12,7 +12,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export const Form = ({toggleCheck, toggleDialog, checked, addTime, handleCancel}) => {
+export const Form = ({changeChargeNumber, changeLocation, toggleCheck, toggleDialog, chargeNumber, location, checked, addTime}) => {
   return (
     <form>
       <DialogTitle>Enter Time</DialogTitle>
@@ -22,7 +22,7 @@ export const Form = ({toggleCheck, toggleDialog, checked, addTime, handleCancel}
           margin='dense'
           id='chargeNumber'
           label='Charge Number'
-          inputRef={x => this.chargeNumber = x}
+          onChange={(e) => changeChargeNumber(e.target.value)}
           fullWidth
         />
         <TextField
@@ -30,7 +30,7 @@ export const Form = ({toggleCheck, toggleDialog, checked, addTime, handleCancel}
           margin='dense'
           id='location'
           label='Location'
-          inputRef={x => this.location = x}
+          onChange={(e) => changeLocation(e.target.value)}
           fullWidth
         />
         <FormGroup>
@@ -49,20 +49,25 @@ export const Form = ({toggleCheck, toggleDialog, checked, addTime, handleCancel}
       </DialogContent>
       <DialogActions>
         <Button 
-          onClick={handleCancel}
+          onClick={() => {
+            if (checked) toggleCheck();
+            toggleDialog();
+          }}
           color='primary'
           className='cancel'
         >
           Cancel
         </Button>
-        <Button type='submit' className='submit' onClick={(e) => {
+        <Button type='submit' onClick={(e) => {
           e.preventDefault();
-          if (!this.chargeNumber.value || !this.location.value) {
+          if (!chargeNumber || !location) {
             alert('Please enter a charge number and location');
             return;
           }
-          addTime(this.chargeNumber.value, this.location.value, checked);
+          addTime(chargeNumber, location, checked);
           if (checked) toggleCheck();
+          changeChargeNumber('');
+          changeLocation('');
           toggleDialog();
         }}>
           Enter
@@ -72,11 +77,7 @@ export const Form = ({toggleCheck, toggleDialog, checked, addTime, handleCancel}
   );
 };
 
-export const FormDialog = ({open, toggleDialog, toggleCheck, addTime, checked}) => {
-  const handleCancel = () => {
-    if (checked) toggleCheck();
-    toggleDialog();
-  };
+export const FormDialog = ({open, toggleDialog, changeChargeNumber, changeLocation, toggleCheck, addTime, chargeNumber, location, checked}) => {
   return (
     <div>
       <Button 
@@ -93,11 +94,14 @@ export const FormDialog = ({open, toggleDialog, toggleCheck, addTime, checked}) 
         onClose={toggleDialog}
       >
         <Form 
-          addTime={addTime} 
+          addTime={addTime}
+          changeChargeNumber={changeChargeNumber}
+          changeLocation={changeLocation} 
           toggleCheck={toggleCheck}
+          chargeNumber={chargeNumber}
+          location={location}
           checked={checked} 
           toggleDialog={toggleDialog}
-          handleCancel={handleCancel}
         />
       </Dialog>
     </div>
@@ -106,17 +110,25 @@ export const FormDialog = ({open, toggleDialog, toggleCheck, addTime, checked}) 
 
 FormDialog.propTypes = {
   open: PropTypes.bool,
+  chargeNumber: PropTypes.string,
+  location: PropTypes.string,
   toggleDialog: PropTypes.func,
   toggleCheck: PropTypes.func,
   addTime: PropTypes.func,
+  changeChargeNumber: PropTypes.func,
+  changeLocation: PropTypes.func,
   checked: PropTypes.bool,
 };
 
 Form.propTypes = {
   toggleDialog: PropTypes.func,
+  changeChargeNumber: PropTypes.func,
+  changeLocation: PropTypes.func,
   toggleCheck: PropTypes.func,
   addTime: PropTypes.func,
   handleCancel: PropTypes.func,
+  chargeNumber: PropTypes.string,
+  location: PropTypes.string,
   checked: PropTypes.bool,
 };
 

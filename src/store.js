@@ -11,6 +11,8 @@ const initialState = {
     timeDialog: {
       open: false,
       checked: false,
+      chargeNumber: '',
+      location: '',
     },
     messagesDialogOpen: false,
     absencesDialog: {

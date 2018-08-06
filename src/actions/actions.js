@@ -78,6 +78,20 @@ export const toggleInfo = () => {
   };
 };
 
+export const changeChargeNumber = (chargeNumber) => {
+  return {
+    type: 'CHANGE_CHARGE_NUMBER',
+    chargeNumber
+  };
+};
+
+export const changeLocation = (location) => {
+  return {
+    type: 'CHANGE_LOCATION',
+    location
+  };
+};
+
 export const toggleCheck = () => {
   return {
     type: 'TOGGLE_CHECKED',

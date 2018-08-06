@@ -3,6 +3,8 @@ const initialState = {
   timeDialog: {
     open: false,
     checked: false,
+    chargeNumber: '',
+    location: '',
   },
   messagesDialogOpen: false,
   absencesDialog: {
@@ -40,6 +42,16 @@ const dialogs = (state = initialState, action) => {
     let newTimeDialog2 = state.timeDialog;
     newTimeDialog2 = newTimeDialog2.checked === true ? {...newTimeDialog2, checked: false} : {...newTimeDialog2, checked: true};
     return {...state, timeDialog: newTimeDialog2};
+  }
+  case 'CHANGE_CHARGE_NUMBER': {
+    let newTimeDialog3 = state.timeDialog;
+    newTimeDialog3.chargeNumber = action.chargeNumber;
+    return {...state, timeDialog: newTimeDialog3};
+  }
+  case 'CHANGE_LOCATION': {
+    let newTimeDialog4 = state.timeDialog;
+    newTimeDialog4.location = action.location;
+    return {...state, timeDialog: newTimeDialog4};
   }
   case 'TOGGLE_SNACKBAR': {
     return state.snackbarOpen === true ? {...state, snackbarOpen: false} : {...state, snackbarOpen: true};

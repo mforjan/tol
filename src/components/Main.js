@@ -48,11 +48,15 @@ export class Main extends React.Component {
         <TimeReport 
           time={this.props.time}
           open={this.props.timeDialogOpen}
+          chargeNumber={this.props.chargeNumber}
+          location={this.props.location}
           checked={this.props.checked}
           toggleDialog={this.props.actions.toggleTime}
           addTime={this.props.actions.addTime}
           changeTime={this.props.actions.changeTime}
           deleteRow={this.props.actions.deleteRow}
+          changeChargeNumber={this.props.actions.changeChargeNumber}
+          changeLocation={this.props.actions.changeLocation}
           toggleCheck={this.props.actions.toggleCheck}
         />
         <Snackbar
@@ -75,6 +79,8 @@ Main.propTypes = {
   messagesOpen: PropTypes.bool,
   time: PropTypes.array,
   timeDialogOpen: PropTypes.bool,
+  chargeNumber: PropTypes.string,
+  location: PropTypes.string,
   checked: PropTypes.bool,
   snackbarOpen: PropTypes.bool
 };
@@ -89,6 +95,8 @@ const mapStateToProps = (state) => {
     messagesOpen: state.dialogs.messagesDialogOpen,
     absencesOpen: state.dialogs.absencesDialog.open,
     infoOpen: state.dialogs.infoOpen,
+    chargeNumber: state.dialogs.timeDialog.chargeNumber,
+    location: state.dialogs.timeDialog.location,
     checked: state.dialogs.timeDialog.checked,
     snackbarOpen: state.dialogs.snackbarOpen,
   };
