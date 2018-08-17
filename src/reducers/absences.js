@@ -1,7 +1,8 @@
-import data from '../data/data';
-
-const absences = (state = data.absences, action) => {
+const absences = (state = [], action) => {
   switch (action.type) {
+  case 'SET_ABSENCES': {
+    return action.absences;
+  }
   case 'ADD_ABSENCE': {
     const newState = [...state];
     newState.push({
@@ -13,8 +14,7 @@ const absences = (state = data.absences, action) => {
     return newState;
   }
   case 'DELETE_ABSENCE': {
-    const newState = state.filter(absence => (absence.startDate.getTime() !== action.startDate.getTime()));
-    return newState;
+    return state.filter(absence => (absence._id !== action.id));
   }
   default: {
     return state;

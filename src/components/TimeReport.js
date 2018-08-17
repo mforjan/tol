@@ -17,6 +17,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import FormDialog from './FormDialog';
 import data from '../data/data';
 import helpers from '../helpers/helpers';
+import { fetchTime } from '../actions/actions';
 
 const CustomTableCell = withStyles(() => ({
   head: {
@@ -34,8 +35,10 @@ const CustomTableCell = withStyles(() => ({
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let dayIndex = 0;
 
-export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, deleteRow, chargeNumber, location, checked, changeChargeNumber, changeLocation, toggleCheck}) => {
-  const handleChangeTime = (chargeNumber, location, telework, day) => {
+let isLoading = false;
+
+export class TimeReport extends React.Component {
+  handleChangeTime = (row, day) => {
     let newHours = window.prompt('Enter hours for this day:');
     if (newHours % .25 !== 0) {
       alert('Please enter time in quarter-hour increments');
@@ -48,111 +51,119 @@ export const TimeReport = ({time, open, toggleDialog, addTime, changeTime, delet
     } else if (newHours === null) {
       return;
     }
-    return changeTime(chargeNumber, location, telework, day, newHours);
+    return this.props.changeTime(row, day, parseFloat(newHours));
   };
 
-  const handleDeleteRow = (id) => {
-    if (window.confirm('Are you sure you want to delete this row?')) return deleteRow(id);
+  handleDeleteRow = (id) => {
+    if (window.confirm('Are you sure you want to delete this row?')) return this.props.deleteRow(id);
   };
 
-  return (
-    <div>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <CustomTableCell className='table-cell' style={{width: 20}}></CustomTableCell>
-            <CustomTableCell className='table-cell'>Charge Number</CustomTableCell>
-            <CustomTableCell className='table-cell'>Location</CustomTableCell>
-            <CustomTableCell className='table-cell'>Telework</CustomTableCell>
-            {data.dates.map(date => <CustomTableCell className='table-cell' key={date}>
-              <div style={{display: 'flex', flexDirection: 'column'}}>
-                <span>{days[dayIndex++ % 7]}</span>
-                <span>{date}</span>
-              </div>
-            </CustomTableCell>)}
-            <CustomTableCell className='table-cell'>Total</CustomTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {time.map(row => {
-            let rowId = row.chargeNumber + row.location + row.telework;
-            const table = [];
-            for (let i = 0; i < 14; i++) {
-              const day = 'day' + i;
-              table.push(<CustomTableCell 
-                className='table-cell time-cell' 
-                style={{cursor: 'pointer'}} 
-                key={rowId + i} 
-                onClick={() => {handleChangeTime(row.chargeNumber, row.location, row.telework, day);}}
-              >
-                {row.hours[day] === 0 ? '': (row.hours[day]).toFixed(2)}
-              </CustomTableCell>);
-            }
-            return (<TableRow key={rowId} hover={true}>
-              <CustomTableCell className='table-cell'>
-                <IconButton onClick={() => handleDeleteRow(rowId)} >
-                  <ClearIcon />
-                </IconButton>
-              </CustomTableCell>
-              <CustomTableCell className='table-cell'>
-                <Tooltip id={rowId + 'tooltip'} title={row.chargeNumberDescription} placement='right'>
-                  <div style={{width: '65%'}}>
-                    {row.chargeNumber}
-                  </div>
-                </Tooltip>
-              </CustomTableCell>
-              <CustomTableCell className='table-cell'>{row.location}</CustomTableCell>
-              <CustomTableCell className='table-cell'>{row.telework ? 'Y' : 'N'}</CustomTableCell>
-              {table.map(hours => hours)}
-              <CustomTableCell className='table-cell'>{helpers.findRowHours(row).toFixed(2)}</CustomTableCell>
-            </TableRow>);
-          })}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <CustomTableCell className='table-cell'></CustomTableCell>
-            <CustomTableCell className='table-cell'>Total telework hours: {helpers.findTotalTeleworkHours(time)}</CustomTableCell>
-            <CustomTableCell className='table-cell'></CustomTableCell>
-            <CustomTableCell className='table-cell'><b>Total: </b></CustomTableCell>
-            {data.dates.map(date => {
-              const day = 'day' + (data.dates.indexOf(date));
-              const total = time.reduce((sum, row) => {
-                return (parseFloat(sum) + parseFloat(row.hours[day])).toFixed(2);
-              }, 0);
-              return <CustomTableCell className='table-cell' key={date + ' total'}>{total}</CustomTableCell>;
+  componentDidMount() {
+    fetchTime().then(time => this.props.setTime(time));
+  }
+
+  render() {
+    const {time, open, toggleDialog, addTime, chargeNumber, location, checked, changeChargeNumber, changeLocation, toggleCheck} = this.props;
+    return isLoading ? <h1>Loading</h1> : (
+      <div>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <CustomTableCell className='table-cell' style={{width: 20}}></CustomTableCell>
+              <CustomTableCell className='table-cell'>Charge Number</CustomTableCell>
+              <CustomTableCell className='table-cell'>Location</CustomTableCell>
+              <CustomTableCell className='table-cell'>Telework</CustomTableCell>
+              {data.dates.map(date => <CustomTableCell className='table-cell' key={date}>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                  <span>{days[dayIndex++ % 7]}</span>
+                  <span>{date}</span>
+                </div>
+              </CustomTableCell>)}
+              <CustomTableCell className='table-cell'>Total</CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {time.map(row => {
+              const table = [];
+              for (let i = 0; i < 14; i++) {
+                const day = 'day' + i;
+                table.push(<CustomTableCell 
+                  className='table-cell time-cell' 
+                  style={{cursor: 'pointer'}} 
+                  key={row._id + i} 
+                  onClick={() => {this.handleChangeTime(row, day);}}
+                >
+                  {row.hours[day] === 0 ? '': (row.hours[day]).toFixed(2)}
+                </CustomTableCell>);
+              }
+              return (<TableRow key={row._id} hover={true}>
+                <CustomTableCell className='table-cell'>
+                  <IconButton onClick={() => this.handleDeleteRow(row._id)} >
+                    <ClearIcon />
+                  </IconButton>
+                </CustomTableCell>
+                <CustomTableCell className='table-cell'>
+                  <Tooltip id={row._id + 'tooltip'} title={row.chargeNumberDescription} placement='right'>
+                    <div style={{width: '65%'}}>
+                      {row.chargeNumber}
+                    </div>
+                  </Tooltip>
+                </CustomTableCell>
+                <CustomTableCell className='table-cell'>{row.location}</CustomTableCell>
+                <CustomTableCell className='table-cell'>{row.telework ? 'Y' : 'N'}</CustomTableCell>
+                {table.map(hours => hours)}
+                <CustomTableCell className='table-cell'>{helpers.findRowHours(row).toFixed(2)}</CustomTableCell>
+              </TableRow>);
             })}
-            <CustomTableCell className='table-cell'><b>{helpers.findTotalHours(time)}</b></CustomTableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
-      <div style={{display: 'flex', justifyContent: 'center'}}>
-        <FormDialog 
-          open={open}
-          toggleDialog={toggleDialog}
-          changeChargeNumber={changeChargeNumber}
-          changeLocation={changeLocation}
-          toggleCheck={toggleCheck}
-          addTime={addTime}
-          chargeNumber={chargeNumber}
-          location={location}
-          checked={checked}
-        />
-        <Button 
-          variant='contained' 
-          color='primary' 
-          className='add-time'
-          style={{margin: 10}}
-        >Submit Time Report</Button>
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <CustomTableCell className='table-cell'></CustomTableCell>
+              <CustomTableCell className='table-cell'>Total telework hours: {helpers.findTotalTeleworkHours(time)}</CustomTableCell>
+              <CustomTableCell className='table-cell'></CustomTableCell>
+              <CustomTableCell className='table-cell'><b>Total: </b></CustomTableCell>
+              {data.dates.map(date => {
+                const day = 'day' + (data.dates.indexOf(date));
+                const total = time.reduce((sum, row) => {
+                  return (parseFloat(sum) + parseFloat(row.hours[day])).toFixed(2);
+                }, 0);
+                return <CustomTableCell className='table-cell' key={date + ' total'}>{total}</CustomTableCell>;
+              })}
+              <CustomTableCell className='table-cell'><b>{helpers.findTotalHours(time)}</b></CustomTableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <FormDialog 
+            open={open}
+            time={time}
+            toggleDialog={toggleDialog}
+            changeChargeNumber={changeChargeNumber}
+            changeLocation={changeLocation}
+            toggleCheck={toggleCheck}
+            addTime={addTime}
+            chargeNumber={chargeNumber}
+            location={location}
+            checked={checked}
+          />
+          <Button 
+            variant='contained' 
+            color='primary' 
+            className='add-time'
+            style={{margin: 10}}
+          >Submit Time Report</Button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 TimeReport.propTypes = {
   time: PropTypes.array,
   open: PropTypes.bool,
   toggleDialog: PropTypes.func,
   addTime: PropTypes.func,
+  setTime: PropTypes.func,
   changeTime: PropTypes.func,
   deleteRow: PropTypes.func,
   chargeNumber: PropTypes.string,

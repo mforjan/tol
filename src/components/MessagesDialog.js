@@ -11,48 +11,58 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import { fetchMessages } from '../actions/actions';
 
 // import data from '../data/data';
 
-export const MessagesDialog = ({open, toggleDialog, data, deleteMessage}) => {
-  const handleDeleteMessage = (id) => {
-    if (window.confirm('Delete message?')) return deleteMessage(id);
+export class MessagesDialog extends React.Component {
+  handleDeleteMessage = (id) => {
+    if (window.confirm('Delete message?')) return this.props.deleteMessage(id);
   };
-  return (
-    <div>
-      <Dialog
-        open={open}
-        onClose={toggleDialog}
-        fullWidth={true}
-        maxWidth='md'
-      >
-        <DialogTitle>Messages</DialogTitle>
-        <DialogContent>
-          <List component="nav">
-            {data.length > 0 ? data.map(message => {
-              return (<ListItem key={message.id} button>
-                <ListItemText className='message' primary={message.text} secondary={message.date} />
-                <ListItemSecondaryAction>
-                  <IconButton onClick={() => handleDeleteMessage(message.id)} aria-label="Comments">
-                    <ClearIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>);
-            }) : (
-              <ListItem button>
-                <ListItemText className='message' primary='No messages' />
-              </ListItem>)}
-          </List>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-};
+
+  componentDidMount() {
+    fetchMessages().then(messages => this.props.setMessages(messages));
+  }
+
+  render() {
+    const {open, toggleDialog, data} = this.props;
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={toggleDialog}
+          fullWidth={true}
+          maxWidth='md'
+        >
+          <DialogTitle>Messages</DialogTitle>
+          <DialogContent>
+            <List component="nav">
+              {data.length > 0 ? data.map(message => {
+                return (<ListItem key={message._id} button>
+                  <ListItemText className='message' primary={message.text} secondary={(new Date(message.date)).toDateString()} />
+                  <ListItemSecondaryAction>
+                    <IconButton onClick={() => this.handleDeleteMessage(message._id)} aria-label="Comments">
+                      <ClearIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>);
+              }) : (
+                <ListItem button>
+                  <ListItemText className='message' primary='No messages' />
+                </ListItem>)}
+            </List>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  }
+}
 
 MessagesDialog.propTypes = {
   open: PropTypes.bool,
   toggleDialog: PropTypes.func,
   data: PropTypes.array,
+  setMessages: PropTypes.func,
   deleteMessage: PropTypes.func
 };
 

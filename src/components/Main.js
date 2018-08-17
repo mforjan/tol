@@ -41,7 +41,8 @@ export class Main extends React.Component {
         <MessagesDialog 
           data={this.props.messages}
           open={this.props.messagesOpen} 
-          toggleDialog={this.props.actions.toggleMessages} 
+          toggleDialog={this.props.actions.toggleMessages}
+          setMessages={this.props.actions.setMessages} 
           deleteMessage={this.props.actions.deleteMessage}
         />
         <AbsencesDialog />
@@ -53,6 +54,7 @@ export class Main extends React.Component {
           checked={this.props.checked}
           toggleDialog={this.props.actions.toggleTime}
           addTime={this.props.actions.addTime}
+          setTime={this.props.actions.setTime}
           changeTime={this.props.actions.changeTime}
           deleteRow={this.props.actions.deleteRow}
           changeChargeNumber={this.props.actions.changeChargeNumber}

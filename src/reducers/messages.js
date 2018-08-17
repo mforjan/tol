@@ -1,9 +1,12 @@
-import data from '../data/data';
+// import data from '../data/data';
 
-const messages = (state = data.messages, action) => {
+const messages = (state = [], action) => {
   switch (action.type) {
+  case 'SET_MESSAGES': {
+    return action.messages;
+  }
   case 'DELETE_MESSAGE': {
-    return state.filter(message => message.id !== action.id);
+    return state.filter(message => message._id !== action.id);
   }
   default: {
     return state;

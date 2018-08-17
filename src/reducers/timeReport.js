@@ -1,18 +1,13 @@
 import data from '../data/data';
 
-const timeReport = (state = data.rows, action) => {
+const timeReport = (state = [], action) => {
   switch (action.type) {
+  case 'SET_TIME': {
+    return action.time;
+  }
   case 'ADD_TIME': {
     const newState = [...state];
-    for (let i = 0; i < newState.length; i++) {
-      if (newState[i].chargeNumber === action.chargeNumber 
-        && newState[i].location === action.location 
-        && newState[i].telework === action.telework) {
-        alert('You have a previous entry matching this one');
-        return state;
-      }
-    }
-    const newRow = {
+    newState.push({
       chargeNumber: action.chargeNumber,
       chargeNumberDescription: data.chargeNumbers[action.chargeNumber],
       location: action.location,
@@ -33,19 +28,18 @@ const timeReport = (state = data.rows, action) => {
         day12: 0,
         day13: 0,
       }
-    };
-    newState.push(newRow);
+    });
     return newState;
   }
   case 'CHANGE_TIME': {
     const newState2 = [...state];
-    const row = newState2.find(row => row.chargeNumber + row.location + row.telework === action.rowId);
+    const row = newState2.find(row => row._id === action.id);
     row.hours[action.day] = parseFloat(action.newHours);
     return newState2;
   }
   case 'DELETE_ROW': {
     const stateCopy = [...state];
-    const newState3 = stateCopy.filter(row => row.chargeNumber + row.location + row.telework !== action.rowId);
+    const newState3 = stateCopy.filter(row => row._id !== action.id);
     return newState3;
   }
   default: {

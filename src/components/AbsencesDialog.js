@@ -21,6 +21,7 @@ import Divider from '@material-ui/core/Divider';
 
 import data from '../data/data';
 import * as actionCreators from '../actions/actions';
+import { fetchAbsences } from '../actions/actions';
 
 export class AbsencesDialog extends React.Component {
   handleChangeStartDate = (e) => {
@@ -57,25 +58,29 @@ export class AbsencesDialog extends React.Component {
     this.props.actions.toggleSnackbar();
   }
 
-  handleDeleteAbsence = (startDate, endDate) => {
+  handleDeleteAbsence = (id) => {
     if (!window.confirm('Are you sure you want to delete this absence?')) return;
-    this.props.actions.deleteAbsence(startDate, endDate);
+    this.props.actions.deleteAbsence(id);
   }
 
   createAbsenceList = (data) => {
     return data.map(absence => (
       <ListItem key={absence.startDate}>
         <ListItemText 
-          primary={absence.startDate.toDateString() + ' to ' + absence.endDate.toDateString()} 
+          primary={new Date(absence.startDate).toDateString() + ' to ' + new Date(absence.endDate).toDateString()} 
           secondary={absence.absenceReason ? absence.absenceReason : absence.travelReason} 
         />
         <ListItemSecondaryAction>
-          <IconButton onClick={() => this.handleDeleteAbsence(absence.startDate, absence.endDate)} aria-label="Comments">
+          <IconButton onClick={() => this.handleDeleteAbsence(absence._id)} aria-label="Comments">
             <ClearIcon />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
     ));
+  }
+
+  componentDidMount() {
+    fetchAbsences().then(absences => this.props.actions.setAbsences(absences));
   }
 
   render() {

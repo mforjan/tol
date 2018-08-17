@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { fetchTime } from '../actions/actions';
 
 export const Form = ({changeChargeNumber, changeLocation, toggleCheck, toggleDialog, chargeNumber, location, checked, addTime}) => {
   return (
@@ -64,11 +65,20 @@ export const Form = ({changeChargeNumber, changeLocation, toggleCheck, toggleDia
             alert('Please enter a charge number and location');
             return;
           }
-          addTime(chargeNumber, location, checked);
-          if (checked) toggleCheck();
-          changeChargeNumber('');
-          changeLocation('');
-          toggleDialog();
+          fetchTime().then((time) => {
+            let previousEntry = true;
+            for (let i = 0; i < time.length; i++) {
+              if (time[i].chargeNumber === chargeNumber && time[i].location === location && time[i].telework === checked) {
+                alert('You have a previous entry matching this one.');
+                previousEntry = false;
+              }
+            }
+            if (previousEntry) addTime(chargeNumber, location, checked);
+            if (checked) toggleCheck();
+            changeChargeNumber('');
+            changeLocation('');
+            toggleDialog();
+          });
         }}>
           Enter
         </Button>
