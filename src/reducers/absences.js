@@ -1,9 +1,11 @@
+import { SET_ABSENCES, ADD_ABSENCE, DELETE_ABSENCE } from '../actions/constants';
+
 const absences = (state = [], action) => {
   switch (action.type) {
-  case 'SET_ABSENCES': {
+  case SET_ABSENCES: {
     return action.absences;
   }
-  case 'ADD_ABSENCE': {
+  case ADD_ABSENCE: {
     const newState = [...state];
     newState.push({
       startDate: action.startDate,
@@ -13,7 +15,7 @@ const absences = (state = [], action) => {
     });
     return newState;
   }
-  case 'DELETE_ABSENCE': {
+  case DELETE_ABSENCE: {
     return state.filter(absence => (absence._id !== action.id));
   }
   default: {

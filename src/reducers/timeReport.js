@@ -1,11 +1,17 @@
 import data from '../data/data';
+import {
+  SET_TIME,
+  ADD_TIME,
+  CHANGE_TIME,
+  DELETE_ROW
+} from '../actions/constants';
 
 const timeReport = (state = [], action) => {
   switch (action.type) {
-  case 'SET_TIME': {
+  case SET_TIME: {
     return action.time;
   }
-  case 'ADD_TIME': {
+  case ADD_TIME: {
     const newState = [...state];
     newState.push({
       chargeNumber: action.chargeNumber,
@@ -31,13 +37,13 @@ const timeReport = (state = [], action) => {
     });
     return newState;
   }
-  case 'CHANGE_TIME': {
+  case CHANGE_TIME: {
     const newState2 = [...state];
     const row = newState2.find(row => row._id === action.id);
     row.hours[action.day] = parseFloat(action.newHours);
     return newState2;
   }
-  case 'DELETE_ROW': {
+  case DELETE_ROW: {
     const stateCopy = [...state];
     const newState3 = stateCopy.filter(row => row._id !== action.id);
     return newState3;
