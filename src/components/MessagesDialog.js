@@ -13,8 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import { fetchMessages } from '../actions/actions';
 
-// import data from '../data/data';
-
 export class MessagesDialog extends React.Component {
   handleDeleteMessage = (id) => {
     if (window.confirm('Delete message?')) return this.props.deleteMessage(id);
