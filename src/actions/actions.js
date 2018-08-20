@@ -277,15 +277,12 @@ export const postTime = (action) => {
       }
     })
       .then((res) => res.json())
-      .then(response => {
-        console.log(response);
-        dispatch({
-          type: 'ADD_TIME',
-          chargeNumber: response.chargeNumber,
-          location: response.location,
-          telework: response.telework
-        });
-      });
+      .then(response => dispatch({
+        type: 'ADD_TIME',
+        chargeNumber: response.chargeNumber,
+        location: response.location,
+        telework: response.telework
+      }));
   };
 };
 
