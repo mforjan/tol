@@ -19,9 +19,69 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import Divider from '@material-ui/core/Divider';
 
-import data from '../data/data';
 import * as actionCreators from '../actions/actions';
 import { fetchAbsences } from '../actions/actions';
+
+const absenceReasons = [
+  'Adoption and Surrogacy Leave',
+  'Bereavement',
+  'Civic Responsibilites',
+  'Family & Medical Leave w/o Pay',
+  'Holiday',
+  'Leave Sharing',
+  'Leave w/o Pay',
+  'Military Activation Leave',
+  'Military Leave - Singapore Staff Only',
+  'Military Short Term Leave',
+  'Paid Time Off',
+  'Parental Leave',
+  'Short Term Disability',
+  'Special Programs',
+  'Unworked Day'
+];
+
+const holidays = [
+  {
+    name: 'New Year\'s Day',
+    date: new Date('January 1, 2018')
+  },
+  {
+    name: 'Martin Luther King, Jr. Day',
+    date: new Date('January 15, 2018')
+  },
+  {
+    name: 'President\'s Day',
+    date: new Date('February 19, 2018')
+  },
+  {
+    name: 'Memorial Day',
+    date: new Date('May 28, 2018')
+  },
+  {
+    name: 'Independence Day',
+    date: new Date('July 4, 2018')
+  },
+  {
+    name: 'Labor Day',
+    date: new Date('September 3, 2018')
+  },
+  {
+    name: 'Columbus Day',
+    date: new Date('October 8, 2018')
+  },
+  {
+    name: 'Veterans\' Day',
+    date: new Date('November 12, 2018')
+  },
+  {
+    name: 'Thanksgiving',
+    date: new Date('November 22, 2018')
+  },
+  {
+    name: 'Christmas',
+    date: new Date('December 25, 2018')
+  },
+];
 
 export class AbsencesDialog extends React.Component {
   handleChangeStartDate = (e) => {
@@ -124,7 +184,7 @@ export class AbsencesDialog extends React.Component {
                   margin='normal'
                 >
                   <option value=''></option>
-                  {data.absenceReasons.map(reason => (
+                  {absenceReasons.map(reason => (
                     <option key={reason} value={reason}>
                       {reason}
                     </option>
@@ -145,7 +205,7 @@ export class AbsencesDialog extends React.Component {
                     {this.props.data.length ? absenceList : <ListItem><ListItemText primary='None' /></ListItem>}
                     <Divider style={{marginRight: 20}} />
                     <ListSubheader style={{backgroundColor: 'white'}}>{'2018 Booz Allen Holidays'}</ListSubheader>
-                    {data.holidays.map(holiday => (
+                    {holidays.map(holiday => (
                       <ListItem key={holiday.date}>
                         <ListItemText primary={holiday.name} secondary={holiday.date.toDateString()} />
                       </ListItem>
