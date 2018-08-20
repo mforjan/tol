@@ -1,5 +1,3 @@
-// import data from '../data/data';
-
 const messages = (state = [], action) => {
   switch (action.type) {
   case 'SET_MESSAGES': {
