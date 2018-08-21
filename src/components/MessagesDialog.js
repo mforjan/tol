@@ -19,7 +19,15 @@ export class MessagesDialog extends React.Component {
   };
 
   componentDidMount() {
-    fetchMessages().then(messages => this.props.setMessages(messages));
+    fetchMessages()
+      .then(results => {
+        if (results.type === 'SET_ERROR') {
+          this.props.setError();
+        } else {
+          this.props.resetError();
+          this.props.setMessages(results);
+        }
+      });
   }
 
   render() {
@@ -61,7 +69,9 @@ MessagesDialog.propTypes = {
   toggleDialog: PropTypes.func,
   data: PropTypes.array,
   setMessages: PropTypes.func,
-  deleteMessage: PropTypes.func
+  deleteMessage: PropTypes.func,
+  setError: PropTypes.func,
+  resetError: PropTypes.func
 };
 
 export default MessagesDialog;

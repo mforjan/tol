@@ -44,6 +44,8 @@ export class Main extends React.Component {
           toggleDialog={this.props.actions.toggleMessages}
           setMessages={this.props.actions.setMessages} 
           deleteMessage={this.props.actions.deleteMessage}
+          setError={this.props.actions.setError}
+          resetError={this.props.actions.resetError}
         />
         <AbsencesDialog />
         <TimeReport 
@@ -60,6 +62,8 @@ export class Main extends React.Component {
           changeChargeNumber={this.props.actions.changeChargeNumber}
           changeLocation={this.props.actions.changeLocation}
           toggleCheck={this.props.actions.toggleCheck}
+          setError={this.props.actions.setError}
+          resetError={this.props.actions.resetError}
         />
         <Snackbar
           open={this.props.snackbarOpen}
@@ -68,6 +72,7 @@ export class Main extends React.Component {
           onClose={this.props.actions.toggleSnackbar}
           autoHideDuration={1000}
         />
+        <h4 style={{color: 'red'}}>{this.props.errors}</h4>
       </div>
     );
   }
@@ -84,7 +89,8 @@ Main.propTypes = {
   chargeNumber: PropTypes.string,
   location: PropTypes.string,
   checked: PropTypes.bool,
-  snackbarOpen: PropTypes.bool
+  snackbarOpen: PropTypes.bool,
+  errors: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
@@ -101,6 +107,7 @@ const mapStateToProps = (state) => {
     location: state.dialogs.timeDialog.location,
     checked: state.dialogs.timeDialog.checked,
     snackbarOpen: state.dialogs.snackbarOpen,
+    errors: state.errors
   };
 };
 

@@ -140,7 +140,15 @@ export class AbsencesDialog extends React.Component {
   }
 
   componentDidMount() {
-    fetchAbsences().then(absences => this.props.actions.setAbsences(absences));
+    fetchAbsences()
+      .then(results => {
+        if (results.type === 'SET_ERROR') {
+          this.props.actions.setError();
+        } else {
+          this.props.actions.resetError();
+          this.props.actions.setAbsences(results);
+        }
+      });
   }
 
   render() {

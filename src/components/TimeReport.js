@@ -35,8 +35,6 @@ const CustomTableCell = withStyles(() => ({
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let dayIndex = 0;
 
-let isLoading = false;
-
 export class TimeReport extends React.Component {
   handleChangeTime = (row, day) => {
     let newHours = window.prompt('Enter hours for this day:');
@@ -59,12 +57,20 @@ export class TimeReport extends React.Component {
   };
 
   componentDidMount() {
-    fetchTime().then(time => this.props.setTime(time));
+    fetchTime()
+      .then(results => {
+        if (results.type === 'SET_ERROR') {
+          this.props.setError();
+        } else {
+          this.props.resetError();
+          this.props.setTime(results);
+        }
+      });
   }
 
   render() {
     const {time, open, toggleDialog, addTime, chargeNumber, location, checked, changeChargeNumber, changeLocation, toggleCheck} = this.props;
-    return isLoading ? <h1>Loading</h1> : (
+    return (
       <div>
         <Table>
           <TableHead>
@@ -172,6 +178,8 @@ TimeReport.propTypes = {
   changeChargeNumber: PropTypes.func,
   changeLocation: PropTypes.func,
   toggleCheck: PropTypes.func,
+  setError: PropTypes.func,
+  resetError: PropTypes.func
 };
 
 export default TimeReport;
