@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-// import data from './data/data';
 import rootReducer from './reducers/index';
 
 const url = 'http://localhost:4000/';
@@ -53,7 +52,8 @@ const initialState = {
     },
     infoOpen: false,
     snackbarOpen: false,
-  }
+  },
+  errors: null
 };
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
