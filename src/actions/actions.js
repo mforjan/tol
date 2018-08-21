@@ -43,7 +43,7 @@ export const addTime = (chargeNumber, location, telework) => {
         telework: response.telework
       }))
       .catch(error => dispatch({
-        type: actionTypes.ADD_TIME_ERROR,
+        type: actionTypes.SET_ERROR,
         error
       }));
   };
@@ -71,7 +71,7 @@ export const changeTime = (row, day, newHours) => {
         newHours
       }))
       .catch(error => dispatch({
-        type: actionTypes.CHANGE_TIME_ERROR,
+        type: actionTypes.SET_ERROR,
         error
       }));
   };
@@ -86,7 +86,7 @@ export const deleteRow = (id) => {
         id: response._id
       }))
       .catch(error => dispatch({
-        type: actionTypes.DELETE_ROW_ERROR,
+        type: actionTypes.SET_ERROR,
         error
       }));
   };
@@ -109,7 +109,7 @@ export const deleteMessage = (id) => {
         id: response._id,
       }))
       .catch(error => dispatch({
-        type: actionTypes.DELETE_MESSAGE_ERROR,
+        type: actionTypes.SET_ERROR,
         error
       }));
   };
@@ -148,7 +148,7 @@ export const addAbsence = (startDate, endDate, absenceReason, travelReason) => {
         travelReason: response.travelReason
       }))
       .catch(error => dispatch({
-        type: actionTypes.ADD_ABSENCE_ERROR,
+        type: actionTypes.SET_ERROR,
         error
       }));
   };
@@ -163,7 +163,7 @@ export const deleteAbsence = (id) => {
         id: response._id,
       }))
       .catch(error => dispatch({
-        type: actionTypes.DELETE_ABSENCE_ERROR,
+        type: actionTypes.SET_ERROR,
         error
       }));
   };
@@ -263,13 +263,40 @@ export const changeTravelReason = (reason) => {
 
 // DATABASE
 export const fetchTime = () => {
-  return fetch(url + 'time').then(res => res.json());
+  return fetch(url + 'time')
+    .then(res => res.json())
+    .catch(error => ({
+      type: actionTypes.SET_ERROR,
+      error
+    }));
 };
 
 export const fetchMessages = () => {
-  return fetch(url + 'messages').then(res => res.json());
+  return fetch(url + 'messages')
+    .then(res => res.json())
+    .catch(error => ({
+      type: actionTypes.SET_ERROR,
+      error
+    }));
 };
 
 export const fetchAbsences = () => {
-  return fetch(url + 'absences').then(res => res.json());
+  return fetch(url + 'absences')
+    .then(res => res.json())
+    .catch(error => ({
+      type: actionTypes.SET_ERROR,
+      error
+    }));
+};
+
+export const setError = () => {
+  return {
+    type: actionTypes.SET_ERROR,
+  };
+};
+
+export const resetError = () => {
+  return {
+    type: actionTypes.RESET_ERROR,
+  };
 };
