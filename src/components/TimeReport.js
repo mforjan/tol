@@ -13,6 +13,7 @@ import TableFooter from '@material-ui/core/TableFooter';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import ReactLoading from 'react-loading';
 
 import FormDialog from './FormDialog';
 import data from '../data/data';
@@ -34,6 +35,8 @@ const CustomTableCell = withStyles(() => ({
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let dayIndex = 0;
+
+let isLoading = true;
 
 export class TimeReport extends React.Component {
   handleChangeTime = (row, day) => {
@@ -63,6 +66,7 @@ export class TimeReport extends React.Component {
           this.props.setError();
         } else {
           this.props.resetError();
+          isLoading = false;
           this.props.setTime(results);
         }
       });
@@ -71,8 +75,8 @@ export class TimeReport extends React.Component {
   render() {
     const {time, open, toggleDialog, addTime, chargeNumber, location, checked, changeChargeNumber, changeLocation, toggleCheck} = this.props;
     return (
-      <div>
-        <Table>
+      <div style={{display: 'flex', flexDirection: 'column'}} className='center'>
+        {isLoading ? <ReactLoading type='bars' className='loading' color='#3f51b5' height={50} width={50} /> : <Table>
           <TableHead>
             <TableRow>
               <CustomTableCell className='table-cell' style={{width: 20}}></CustomTableCell>
@@ -138,7 +142,7 @@ export class TimeReport extends React.Component {
               <CustomTableCell className='table-cell'><b>{helpers.findTotalHours(time)}</b></CustomTableCell>
             </TableRow>
           </TableFooter>
-        </Table>
+        </Table>}
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <FormDialog 
             open={open}
